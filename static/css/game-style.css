@@ -1,0 +1,71 @@
+#game-header{
+    margin-top:50px;
+    height:50px;
+}
+
+#game-name{
+
+    font-size: 40px;
+
+}
+
+#game-score{
+
+
+}
+
+#game-canvas{
+  text-align: center;
+  background: #c0c0c0;
+  border: #a0a0a0 solid 1px;
+  height: 300px;
+}
+
+#game-canvas p{
+    margin-top: 80px;
+    font-size:80px;
+    text-align:center;
+}
+
+
+#game-input{
+    background-color: #ccc;
+    height:100px;
+  border: #a0a0a0 solid 1px;
+}
+
+#input-game-input{
+    margin-top: 10px;
+    font-size: 40px;
+    height:70px;
+    background-color: #fff;
+    width:200px;
+    display:block
+}
+
+#result-flashcard{
+    
+    margin-top: 10px;
+    font-size: 40px;
+    height:70px;
+
+}
+
+#btn-game-input{
+    margin-top: 10px;
+    font-size: 20px;
+    height:70px;
+    background-color: #fff;
+    display:block
+}
+
+
+#btn-hanzi-next{
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+
+#game-name,#game-input div{
+    text-align:center;
+}
