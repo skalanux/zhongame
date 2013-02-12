@@ -1,7 +1,7 @@
 (function () {
 
-const DB_NAME = 'zhongame-test5';
-const DB_VERSION = 2; // Use a long long for this value (don't use a float)
+const DB_NAME = 'zhongame';
+const DB_VERSION = 1; // Use a long long for this value (don't use a float)
 const DB_STORE_NAME = 'hanzi';
 
 var db;
@@ -72,6 +72,7 @@ function getBlob(key, store, success_callback) {
 var hanzi_list = [];
 var current_hanzi_index = 0;
 var total_hanzi_elements = 0;
+
 
 
 function shuffle(o){ //v1.0
@@ -193,7 +194,7 @@ function addEventListeners() {
   $("#btn-hanzi-next").click(function(evt) {
     current_hanzi_index += 1;
 
-    if (total_hanzi_elements<current_hanzi_index){
+    if (total_hanzi_elements<=current_hanzi_index){
         current_hanzi_index = 0;
         hanzi_list = shuffle(hanzi_list);
     };

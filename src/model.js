@@ -1,13 +1,29 @@
 (function () {
 
-const DB_NAME = 'zhongame-test5';
-const DB_VERSION = 2; // Use a long long for this value (don't use a float)
+const DB_NAME = 'zhongame';
+const DB_VERSION = 1; // Use a long long for this value (don't use a float)
 const DB_STORE_NAME = 'hanzi';
 
 var db;
 
 // Used to keep track of which view is displayed to avoid to uselessly reload it
 var current_view_pub_key;
+
+
+function loadFromJson() {
+    var json_data = null;
+    $.ajax({
+            'async': false,
+            'global': false,
+            'url': 'src/initial_data.json',
+            'dataType': "json",
+            'success': function (data) {
+                        json_data = data;
+                    }
+        });
+    return json_data;
+};
+
 
 function openDb() {
   console.log("openDb ...");
@@ -32,6 +48,10 @@ function openDb() {
     store.createIndex('pinyin', 'pinyin', { unique: false });
     store.createIndex('hsklevel', 'hsklevel', { unique: false });
     store.createIndex('meaning', 'meaning', { unique: false });
+
+    // Now load initial_data from json fixture
+    //
+
   };
 }
 
@@ -239,6 +259,7 @@ function addPublicationFromUrl(hanzi, pinyin, meaning, url) {
  * @param {string} meaning
  * @param {Blob=} blob
  */
+
 function addPublication(hanzi, pinyin, meaning, hsklevel, blob) {
   console.log("addPublication arguments:", arguments);
   var obj = { hanzi: hanzi, pinyin: pinyin, meaning: meaning, hsklevel:hsklevel };
@@ -280,6 +301,13 @@ function resetActionStatus() {
   console.log("resetActionStatus DONE");
 }
 
+function loadFromFixture(){
+json_data = loadFromJson();
+$.each(json_data, function(i, item) {
+    addPublication(item.hanzi, item.pinyin, item.meaning, item.hsklevel);
+});
+};
+
 function addEventListeners() {
   console.log("addEventListeners");
 
@@ -308,9 +336,23 @@ search_button.click(function(evt) {
   displayPubList();
 });
 
+var load_from_fixture_button = $('#load-from-fixture-button');
+load_from_fixture_button.click(function(evt) {
+  loadFromFixture();
+});
+
+var clear_list_button = $('#clear-list-button');
+
+clear_list_button.click(function(evt) {
+  clearObjectStore(DB_STORE_NAME);
+});
+
+
 }
 
 openDb();
 addEventListeners();
+
+loadFromFixture();
 
 })(); // Immediately-Invoked Function Expression (IIFE)
